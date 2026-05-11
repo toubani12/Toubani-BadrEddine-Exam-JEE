@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>enset.badhacker</groupId>
-    <artifactId>CarLoacation</artifactId>
+    <artifactId>CarLocationToubaniBadrEddine</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>CarLoacation</name>
     <description>CarLoacation</description>
