@@ -235,14 +235,14 @@ The backend follows the classic JEE layered design:
 
 ```mermaid
 flowchart TD
-    A[REST Controllers<br/>@RestController + @PreAuthorize] --> B
-    B[Service Layer<br/>interface + impl, @Transactional, business rules] --> C
-    C[Mappers<br/>Entity ↔ DTO] --> D
-    D[Repositories<br/>Spring Data JPA] --> E
-    E[(Database<br/>H2 / MySQL / PostgreSQL)]
+    A["REST Controllers<br/>@RestController + @PreAuthorize"] --> B
+    B["Service Layer<br/>interface + impl, @Transactional, business rules"] --> C
+    C["Mappers<br/>Entity ↔ DTO"] --> D
+    D["Repositories<br/>Spring Data JPA"] --> E
+    E[("(Database)<br/>H2 / MySQL / PostgreSQL")]
 
-    F[JwtAuthenticationFilter] -. validates token .-> A
-    G[GlobalExceptionHandler<br/>@RestControllerAdvice] -. intercepts .-> A
+    F["JwtAuthenticationFilter"] -. "validates token" .-> A
+    G["GlobalExceptionHandler<br/>@RestControllerAdvice"] -. "intercepts" .-> A
 ```
 
 ### Key business rules implemented in `RentalServiceImpl`
