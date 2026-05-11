@@ -3,6 +3,7 @@ package toubani.badreddine.carloacation.web;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -60,18 +61,21 @@ public class VehicleController {
     }
 
     @Operation(summary = "Update the status of a vehicle (AVAILABLE / RENTED / IN_MAINTENANCE)")
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYE')")
     @PatchMapping("/{id}/status")
     public VehicleDTO updateStatus(@PathVariable String id, @RequestParam VehicleStatus status) {
         return vehicleService.updateStatus(id, status);
     }
 
     @Operation(summary = "Assign a vehicle to a different agency")
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}/agency/{agencyId}")
     public VehicleDTO assignAgency(@PathVariable String id, @PathVariable String agencyId) {
         return vehicleService.assignToAgency(id, agencyId);
     }
 
     @Operation(summary = "Delete a vehicle")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         vehicleService.deleteVehicle(id);

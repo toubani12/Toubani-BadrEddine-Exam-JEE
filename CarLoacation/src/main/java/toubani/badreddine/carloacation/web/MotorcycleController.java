@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ public class MotorcycleController {
     private final MotorcycleService motorcycleService;
 
     @Operation(summary = "Register a new motorcycle under a given agency")
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYE')")
     @PostMapping
     public ResponseEntity<MotorcycleDTO> create(@RequestBody MotorcycleDTO dto, @RequestParam String agencyId) {
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -35,6 +37,7 @@ public class MotorcycleController {
     }
 
     @Operation(summary = "Update an existing motorcycle")
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYE')")
     @PutMapping("/{id}")
     public MotorcycleDTO update(@PathVariable String id, @RequestBody MotorcycleDTO dto) {
         return motorcycleService.updateMotorcycle(id, dto);

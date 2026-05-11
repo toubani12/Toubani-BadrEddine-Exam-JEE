@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,18 +32,21 @@ public class RentalController {
     private final RentalService rentalService;
 
     @Operation(summary = "Create a new rental (status RESERVED). Checks vehicle availability for the requested period.")
+    @PreAuthorize("hasAnyRole('CLIENT','EMPLOYE','ADMIN')")
     @PostMapping
     public ResponseEntity<RentalDTO> create(@RequestBody RentalRequestDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(rentalService.createRental(request));
     }
 
     @Operation(summary = "Start a rental: switches it to ONGOING and marks the vehicle as RENTED")
+    @PreAuthorize("hasAnyRole('EMPLOYE','ADMIN')")
     @PostMapping("/{id}/start")
     public RentalDTO start(@PathVariable String id) {
         return rentalService.startRental(id);
     }
 
     @Operation(summary = "Complete a rental: records the actual return date and frees the vehicle")
+    @PreAuthorize("hasAnyRole('EMPLOYE','ADMIN')")
     @PostMapping("/{id}/complete")
     public RentalDTO complete(
             @PathVariable String id,
@@ -52,6 +56,7 @@ public class RentalController {
     }
 
     @Operation(summary = "Cancel a rental")
+    @PreAuthorize("hasAnyRole('EMPLOYE','ADMIN')")
     @PostMapping("/{id}/cancel")
     public RentalDTO cancel(@PathVariable String id) {
         return rentalService.cancelRental(id);
@@ -64,6 +69,7 @@ public class RentalController {
     }
 
     @Operation(summary = "List rentals, optionally filtered by vehicle, customer email, or active state")
+    @PreAuthorize("hasAnyRole('EMPLOYE','ADMIN')")
     @GetMapping
     public List<RentalDTO> getAll(
             @RequestParam(required = false) String vehicleId,

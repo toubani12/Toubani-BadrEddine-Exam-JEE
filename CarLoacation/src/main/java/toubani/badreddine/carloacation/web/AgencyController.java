@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,18 +31,21 @@ public class AgencyController {
     private final AgencyService agencyService;
 
     @Operation(summary = "Create a new agency")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<AgencyDTO> create(@RequestBody AgencyDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(agencyService.createAgency(dto));
     }
 
     @Operation(summary = "Update an existing agency")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public AgencyDTO update(@PathVariable String id, @RequestBody AgencyDTO dto) {
         return agencyService.updateAgency(id, dto);
     }
 
     @Operation(summary = "Delete an agency (must have no vehicles attached)")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         agencyService.deleteAgency(id);

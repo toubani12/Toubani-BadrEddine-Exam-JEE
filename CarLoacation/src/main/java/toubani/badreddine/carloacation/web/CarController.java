@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,12 +29,14 @@ public class CarController {
     private final CarService carService;
 
     @Operation(summary = "Register a new car under a given agency")
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYE')")
     @PostMapping
     public ResponseEntity<CarDTO> create(@RequestBody CarDTO dto, @RequestParam String agencyId) {
         return ResponseEntity.status(HttpStatus.CREATED).body(carService.createCar(dto, agencyId));
     }
 
     @Operation(summary = "Update an existing car")
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLOYE')")
     @PutMapping("/{id}")
     public CarDTO update(@PathVariable String id, @RequestBody CarDTO dto) {
         return carService.updateCar(id, dto);
