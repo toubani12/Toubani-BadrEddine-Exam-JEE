@@ -20,7 +20,7 @@ public class OpenApiConfig {
                         .version("v1.0.0")
                         .contact(new Contact()
                                 .name("Toubani Badreddine")
-                                .email("contact@example.com"))
+                                .email("fadre6@gmail.com"))
                         .license(new License().name("Apache 2.0")));
     }
 }

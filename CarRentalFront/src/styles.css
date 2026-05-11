@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles */
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f6f8fb;
+  color: #212529;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.page-title {
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+.auth-card {
+  max-width: 420px;
+  margin: 4rem auto;
+}
+
+.table thead {
+  background-color: #f1f3f5;
+}
+
+.badge-role {
+  font-size: 0.7rem;
+  margin-right: 0.25rem;
+}
